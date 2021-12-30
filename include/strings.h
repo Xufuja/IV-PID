@@ -13,7 +13,7 @@ const char* METHOD_[] = {CHAINED_SHINY_METHOD, "A-B-C-D", "A-B-D-E", "A-B-C-E", 
 const char** METHOD = METHOD_ + 1;
 
 /* Language-dependant strings */
-extern const char Y_CHAR, N_CHAR;
+extern char Y_CHAR, N_CHAR;
 extern const char
 *NATURE[25],
 *HP_TYPE[16],
