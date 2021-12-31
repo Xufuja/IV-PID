@@ -1,3 +1,17 @@
+# IV PID Calculator
+
+## Overview
+
+See original README for details, only converted it to a Visual Studio solution.
+
+## Usage
+
+When entering IVs, ensure that you are entering 6 space separated values.
+
+
+<details>
+  <summary>Original README by josemam</summary>
+  
 # IV⇆PID
 A fast, open-source IV⇆PID calculator for 3rd and 4th gen Pokémon
 
@@ -46,3 +60,4 @@ What is the point of playing any newer Pokémon game, providing that they do not
 
 ### Omega Ruby and Alpha Sapphire do have the Trick House!
 You got me.
+<details>
