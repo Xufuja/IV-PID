@@ -26,7 +26,7 @@ void ShowAllNatures();
   */
 void ShowAllTypes();
 
-void AskIVs(int &hp, int &at, int &df, int &spa, int &spd, int &spe);
+void AskIVs(int& hp, int& at, int& df, int& spa, int& spd, int& spe);
 uint32_t AskPID();
 int AskNature();
 int AskHiddenPowerType();

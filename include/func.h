@@ -8,24 +8,24 @@
 
 #include <stdint.h> // so PID, RNG, ID, etc get the proper integer size
 
-/**
-  * @param state Current state of the RNG
-  * @return The random number from the next RNG state
-  * 
-  * Moves the \p state one step forward and returns the
-  * next random number, just like the in-game RNG does.
-  */
-uint16_t RNG(uint32_t &state);
+  /**
+	* @param state Current state of the RNG
+	* @return The random number from the next RNG state
+	*
+	* Moves the \p state one step forward and returns the
+	* next random number, just like the in-game RNG does.
+	*/
+uint16_t RNG(uint32_t& state);
 
 /**
   * @param state Current state of the RNG
   * @return The random number from the previous RNG state
-  * 
+  *
   * Moves the \p state one step back and returns the
   * random number that would be returned if the in-game
   * RNG reaches that previous state.
   */
-uint16_t antiRNG(uint32_t &state);
+uint16_t antiRNG(uint32_t& state);
 
 /**
   * @brief Checks if a random number generates high enough IVs
@@ -63,7 +63,7 @@ bool PIDtest(uint32_t pid, int nature, int ability);
 
 /**
   * @brief Checks if a desired Hidden Power is possible from half of the IVs
-  * @param iv  The RNG number that will throw the IVs 
+  * @param iv  The RNG number that will throw the IVs
   * @param hpt Wanted HP type ID, or -1 if any
   * @param hpp Minimum wanted HP base power, or -1 if any
   * @return Whether the wanted Hidden Power is possible
@@ -84,7 +84,7 @@ bool HPtest(uint16_t iv1, uint16_t iv2, int hpt, int hpp);
 /**
   * @brief Checks shininess
   * @param pid_l,pid_h Low and high 16-bits of PID
-  * @param IDxorSID    (ID xor SID) and not 7. 1 if this test is not needed 
+  * @param IDxorSID    (ID xor SID) and not 7. 1 if this test is not needed
   * @return Whether the shiny check is passed
   */
 bool XORtest(uint16_t pid_l, uint16_t pid_h, uint16_t IDxorSID);
@@ -94,17 +94,19 @@ bool XORtest(uint16_t pid_l, uint16_t pid_h, uint16_t IDxorSID);
   * It will further filter the results of the IV to PID method
   */
 struct PokeData {
-  int hp, at, df,
-      spa, spd, spe;  // Minimum or exact HP, Attack and Defense IVs
-  int nature;         // Nature ID, or -1 if any
-  int ability;        // Ability ID, or 2 if any
-  int hp_type;        // Hidden Power type ID, or -1 if any
-  int hp_power;       // Hidden Power minimum power, or -1 if any
-  uint16_t IDxorSID;  // Trainer ID xor Trainer Secret ID
+	int hp, at, df,
+		spa, spd, spe;  // Minimum or exact HP, Attack and Defense IVs
+	int nature;         // Nature ID, or -1 if any
+	int ability;        // Ability ID, or 2 if any
+	int hp_type;        // Hidden Power type ID, or -1 if any
+	int hp_power;       // Hidden Power minimum power, or -1 if any
+	uint16_t IDxorSID;  // Trainer ID xor Trainer Secret ID
 
-  PokeData()
-    :nature(-1), ability(2), hp_type(-1), hp_power(-1), IDxorSID(1)
-    { hp = at = df = spa = spd = spe = 0; }
+	PokeData()
+		:nature(-1), ability(2), hp_type(-1), hp_power(-1), IDxorSID(1)
+	{
+		hp = at = df = spa = spd = spe = 0;
+	}
 };
 
 /**
@@ -115,11 +117,11 @@ struct PokeData {
   * @param pdata  Data to match
   * @param method Chosen method
   * @param count  Number of results so far
-  * 
+  *
   * @note two PIDs might be found if both the PID for seed and the PID for
   * seed xor 0x8000 0000 match the conditions.
   */
-void FindPID(uint32_t seed, uint16_t iv1, uint16_t iv2, const PokeData& pdata, int method, int &count);
+void FindPID(uint32_t seed, uint16_t iv1, uint16_t iv2, const PokeData& pdata, int method, int& count);
 
 /**
   * @brief Explores all possible seeds backwards
@@ -127,11 +129,11 @@ void FindPID(uint32_t seed, uint16_t iv1, uint16_t iv2, const PokeData& pdata, i
   * @param gba    Allowed methods (0 = only NDS, 1 = NDS and common GBA, 2 = all, -1 = chained shiny)
   * @param exact  true if exact IVs are wanted, false otherwise
   * @param count  Number of results so far
-  * 
+  *
   * All the sequences that finish with the wanted Special Attack, Special
   * Defense and Speed are tested to find out whether they match the other
   * IVs and the PID-related attributes.
-  * 
+  *
   * @note Only seeds lower than 0x8000 0000 are explored.
   */
 void TestAllPossibleSeedsBackwards(const PokeData& pdata, int gba, bool exact, int& count);
@@ -144,7 +146,7 @@ void TestAllPossibleSeedsBackwards(const PokeData& pdata, int gba, bool exact, i
   * @param pdata  Data to match
   * @param count  Number of results so far
   */
-void FindChainedPID(uint32_t seed, int iv1, int iv2, const PokeData& pdata, int &count);
+void FindChainedPID(uint32_t seed, int iv1, int iv2, const PokeData& pdata, int& count);
 
 /**
   * @brief Tests if a given RNG state leads to wanted IVs and data
@@ -153,11 +155,11 @@ void FindChainedPID(uint32_t seed, int iv1, int iv2, const PokeData& pdata, int 
   * @param gba    Allowed methods (0 = only NDS, 1 = NDS and common GBA, 2 = all, -1 = chained shiny)
   * @param IVtest Reference to the function that tells whether the IVs are ok
   * @param count  Number of results so far
-  * 
+  *
   * Explores all possible results from a particular RNG state in order to find
   * any results that match the wanted \p pdata.
   */
-void Test(uint32_t seed, const PokeData& pdata, int gba, IVtester& IVtest, int &count);
+void Test(uint32_t seed, const PokeData& pdata, int gba, IVtester& IVtest, int& count);
 
 /**
   * @brief Checks if a RNG state generates a given PID
@@ -174,14 +176,14 @@ bool HighPIDmatches(uint32_t state, uint16_t pid_h);
   * @param count Number of results found so far
   * @param gba   Allowed methods
   */
-void GetFromSeed(uint32_t seed, int &count, int gba);
+void GetFromSeed(uint32_t seed, int& count, int gba);
 
 /**
   * @brief Explores all possible seeds forwards
   * @param pid   PID
   * @param gba   Allowed methods (0 = only NDS, 1 = NDS and common GBA, 2 = all)
   * @param count Number of results so far
-  * 
+  *
   * All the sequences that start with the low PID are tested to find out
   * whether they match the high PID.
   */
